@@ -123,7 +123,6 @@ enum structuresEnum {
 };
 */
 
-    typedef StructureGenerator *(*StructureGeneratorCreator)();
     typedef InnerStructureGenerator *(*InnerStructureGeneratorCreator)();
     typedef RythmGenerator *(*RythmGeneratorCreator)();
     typedef HarmonyGenerator *(*HarmonyGeneratorCreator)();
@@ -175,7 +174,7 @@ enum structuresEnum {
         return new T {};
     };
 
-    map<string, StructureGeneratorCreator> structures;
+    map<string, StructureGenerator> structures;
     map<string, InnerStructureGeneratorCreator> innerStructures;
     map<string, RythmGeneratorCreator> rythms;
     map<string, HarmonyGeneratorCreator> harmonies;

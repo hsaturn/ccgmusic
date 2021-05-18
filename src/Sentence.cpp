@@ -8,9 +8,7 @@ void Sentence::setPhrases(int count) {
 		phrases.push_back(new Phrase());
 	}
 }
-int Sentence::getPhrases() {
- return phrases.size();
-}
+
 Phrase* Sentence::getPhrase(int index) {
  int toAdd = index - phrases.size() + 1;
  for(int i = 0;i < toAdd;i++   ){

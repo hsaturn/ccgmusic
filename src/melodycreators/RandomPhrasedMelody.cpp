@@ -33,6 +33,7 @@ void RandomPhrasedMelody::createMelody(UniquePart *up)
         for (int p = 0; p < up->getSentence(s)->getPhrases(); p++)
         {
             UniquePhrase *upp = up->getSentence(s)->getPhrase(p)->getUniquePhrase();
+            if (upp == nullptr) continue;
             int note = melody[up->getSentence(s)->getPhrase(p)->getUniquePhraseID()][0];
             for (int e = 0; e < upp->getEvents(); e++)
             {

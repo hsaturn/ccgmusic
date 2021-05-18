@@ -89,8 +89,8 @@ int main(int argc, char *argv[])
         if (songCreator->structures.count(structureScript) == 0)
         {
             printf("Available structures:\n");
-            for (map<string, SongCreator::StructureGeneratorCreator>::iterator it = songCreator->structures.begin(); it != songCreator->structures.end(); ++it)
-                printf("\t\"%s\"\n", it->first.c_str());
+            for (/* StructureGenerator */ const auto& struct_gen : songCreator->structures)
+                printf("\t\"%s\"\n", struct_gen.first.c_str());
             return 0;
         }
     }

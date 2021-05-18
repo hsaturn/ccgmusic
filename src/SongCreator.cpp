@@ -1,4 +1,5 @@
 #include "SongCreator.h"
+#include <memory>
 #include <unistd.h>
 
 #define RVERBOSE 1
@@ -14,11 +15,11 @@ SongCreator::SongCreator()
     structures[RANDOM_STRUCTURE] = SongCreator::makeStructure<RandomStructure>;
 */    
     
-    structures["Classical Structure Big"] = SongCreator::makeStructure<ClassicalStructureBig>;
-    structures["Classical Structure Small"] = SongCreator::makeStructure<ClassicalStructureSmall>;
-    structures["Modern Song Structure"] = SongCreator::makeStructure<ModernSongStructure>;
-    structures["One Part Simple Structure"] = SongCreator::makeStructure<OnePartSimpleStructure>;
-    structures["Random Structure"] = SongCreator::makeStructure<RandomStructure>;
+    structures["Classical Structure Big"] = ClassicalStructureBig();
+    structures["Classical Structure Small"] = ClassicalStructureSmall();
+    structures["Modern Song Structure"] = ModernSongStructure();
+    structures["One Part Simple Structure"] = OnePartSimpleStructure();
+    structures["Random Structure"] = RandomStructure();
 
     innerStructures["Fixed Classical"] = SongCreator::makeInnerStructure<FixedClassical>;
 
@@ -145,14 +146,13 @@ void SongCreator::createSong(int seed, int tempo, string structureScript, string
     song->setTempo(tempo);
     song->setSeed(seed);
 
-    StructureGenerator *structureGenerator = structures.at(structureScript)();
+    StructureGenerator& structureGenerator=structures.at(structureScript);
     //structureGenerator.setSong(song);
-    structureGenerator->setSeed(seed);
-    structureGenerator->generateStructure(song);
+    structureGenerator.setSeed(seed);
+    structureGenerator.generateStructure(song);
     #ifdef RVERBOSE
             printf("Structure: script:%s seed:%d\n",structureScript.c_str(),seed);
     #endif
-    delete structureGenerator;
 
     for (int i = 0; i < song->getUniqueParts(); i++)
     {
@@ -398,7 +398,7 @@ void SongCreator::createSong(int seed, int tempo, string structureScript, string
 
 //        printf("Part %d %d-%d\n", j, part->getStartBar(), part->getEndBar());
 
-        for (std::vector<RenderEvent *>::iterator re = song->renderEvents.begin(); re != song->renderEvents.end(); )
+        for (auto re = song->renderEvents.begin(); re != song->renderEvents.end(); )
 
         {
 

@@ -8,7 +8,7 @@ class Sentence {
 public:
  ~Sentence();
  void setPhrases(int);
- int getPhrases();
+ int getPhrases() const { return phrases.size(); }
  Phrase* getPhrase(int);
  int getBars();
 };
